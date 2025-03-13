@@ -1,40 +1,31 @@
+let tarefasLista = [];
+
 function adicionarTarefa() {
-   // Obtém o elemento de entrada (input) onde o usuário digita a tarefa
-   const inputTarefa = document.getElementById('inputTarefa');
+    const inputTarefa = document.getElementById('inputTarefa');
+    let tarefa = inputTarefa.value.trim();
+    const mensagem = document.getElementById("mensagem");
 
-   // Obtém o valor digitado no input e remove espaços extras no início e no final
-   let tarefa = inputTarefa.value.trim();
+    if (tarefa === '') {
+        mensagem.textContent = "Digite uma tarefa para adicioná-la";
+        mensagem.style.color = "red";
+    } else {
+        mensagem.textContent = "Tarefa adicionada com sucesso!";
+        mensagem.style.color = "green";
 
-   // Obtém o elemento que exibirá mensagens para o usuário
-   const mensagem = document.getElementById("mensagem");
+        tarefasLista.push(tarefa);
+        renderizarTarefas();
+    }
 
-   // Verifica se o campo de entrada está vazio
-   if (tarefa == '') {
-       // Define a mensagem de erro e a exibe no elemento de mensagem
-       let mensagemErro = "Digite uma tarefa para adicioná-la";
-       mensagem.textContent = mensagemErro;
+    inputTarefa.value = "";
+}
 
-       mensagem.style.color = "red"
-   } else {
-       // Define a mensagem de sucesso e a exibe no elemento de mensagem
-       let mensagemSucesso = "Tarefa adicionada com sucesso!";
-       mensagem.textContent = mensagemSucesso;
-       
-       mensagem.style.color = "green";
-       
-       // Obtém o elemento da lista de tarefas no HTML
-       const listaTarefas = document.getElementById("listaTarefas");
+function renderizarTarefas() {
+    const listaTarefas = document.getElementById("listaTarefas");
+    listaTarefas.innerHTML = ""; // Limpa a lista antes de renderizar novamente
 
-       // Cria um novo elemento <li> para adicionar à lista
-       let novaTarefa = document.createElement("li");
-
-       // Define o texto do novo item da lista como a tarefa digitada pelo usuário
-       novaTarefa.textContent = tarefa;
-
-       // Adiciona o novo item (<li>) à lista de tarefas (<ul> ou <ol>)
-       listaTarefas.appendChild(novaTarefa);
-   }
-
-   // Limpa o campo de entrada após adicionar a tarefa
-   inputTarefa.value = "";
+    for (let i = 0; i < tarefasLista.length; i++) {
+        let novaTarefa = document.createElement("li");
+        novaTarefa.textContent = tarefasLista[i];
+        listaTarefas.appendChild(novaTarefa);
+    }
 }
