@@ -25,7 +25,47 @@ function renderizarTarefas() {
 
     for (let i = 0; i < tarefasLista.length; i++) {
         let novaTarefa = document.createElement("li");
-        novaTarefa.textContent = tarefasLista[i];
-        listaTarefas.appendChild(novaTarefa);
-    }
+        novaTarefa.textContent = tarefasLista[i]
+        
+        let botaoRemover = document.createElement('button')
+        botaoRemover.className = " remover"
+        botaoRemover.textContent = "remover"
+        botaoRemover.onclick = () => removerTarefa(i)
+        
+        
+        let botaoEditar = document.createElement('button')
+        botaoEditar.className = 'editar'
+        botaoEditar.textContent = 'editar'
+        botaoEditar.onclick = () => editarTarefa(i)
+        
+
+      
+      
+      
+
+        novaTarefa.appendChild(botaoRemover)
+
+        novaTarefa.appendChild(botaoEditar)
+
+        listaTarefas.appendChild(novaTarefa)
+        
+      }
+}
+
+function removerTarefa(i){
+   tarefasLista.splice(i, 1)
+   renderizarTarefas()
+}
+function editarTarefa (i){
+   let tarefaEditada = prompt(" Edite a Tarefa: ")
+   if (tarefaEditada.trim() !== ""){
+      tarefasLista[i] = tarefaEditada
+      renderizarTarefas()
+   }
+} 
+function limparLista(){
+   tarefasLista = 0
+   renderizarTarefas()
+   const mensagem = document.getElementById('mensagem')
+   mensagem.textContent = "Lista Limpa com Sucesso "
 }
